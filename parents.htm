@@ -1,0 +1,51 @@
+<html>
+<body>
+	<big><big><big>The Ninja Hackathon 2019</big></big></big><br/><br/>
+	Parents can use this form to track when their children route is close to home. <br/>
+	Instructions:<br/>
+
+	1. Use <a href="https://www.latlong.net/" target="_new">https://www.latlong.net/</a> to find the coordinates of your home.<br/>
+	2. Introduce the information here:<br/><br/><br/>
+
+<form id="myform" action="https://kd17el5236.execute-api.us-east-2.amazonaws.com/prod/ninja_parents" method="POST">
+	Email: <input type="text" id="email" value="mpg@mpastorg.es"></input><br/><br/>
+	Route: <input type="text" id="route" value="1"></input><br/><br/>
+	Latitude: <input type="text" id="lat" value="77"></input><br/><br/>
+	Longitude: <input type="text" id="lon" value="-85"></input><br/><br/>
+	<input type="button" value="submit" onclick="send(myform)"><br/>
+
+</form>
+<script type="text/javascript">
+	function send(myform){
+		//alert(myform.email.value)
+		myjson ={
+			"email": myform.email.value,
+			"route": myform.route.value,
+			"lon": myform.lon.value,
+			"lat": myform.lat.value
+		}
+		var xhr = new XMLHttpRequest();
+		var url = "https://kd17el5236.execute-api.us-east-2.amazonaws.com/prod/ninja_parents";
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.onreadystatechange = function () {
+    		if (xhr.readyState === 4 && xhr.status === 200) {
+        		console.log(xhr.responseText);
+        		alert(xhr.responseText)
+    			}
+		};
+		var data = JSON.stringify({
+			"email": myform.email.value,
+			"route": myform.route.value,
+			"lon": myform.lon.value,
+			"lat": myform.lat.value
+			});
+		xhr.send(data);
+		console.log(data);
+
+	}
+
+
+</script>
+</body>
+</html>
